@@ -1,0 +1,132 @@
+% Thesis generated from project artifacts
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{longtable}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Meta Sender Protect (MSP): A Reproducible Investigation of Enron-derived Spam Detection}
+\author{Author: (Your Name)\\Supervisor: (Supervisor Name)}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This thesis documents the design, implementation, experiments, and evaluation of a reproducible spam detection pipeline built on Enron-derived email datasets. The system uses TF--IDF text features and an enhanced pipeline that includes a simple domain-based meta-feature. Models are trained with calibrated Linear SVMs wrapped by Platt scaling (CalibratedClassifierCV). Artifacts, plots, and metrics were produced and archived in the project's `backend/experiments_out` and `backend/models` directories.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Email spam remains a pervasive problem. This work focuses on building a reproducible classifier pipeline that provides calibrated probabilities and is suitable for inclusion in a demonstration web app. The contributions are:
+\begin{itemize}
+  \item A reproducible training workflow (`backend/train_full.py`) producing versioned, calibrated pipelines.
+  \item An evaluation suite (k-fold CV, calibration plots, ROC/PR curves) and saved artifacts in `backend/experiments_out`.
+  \item A deployed Flask API that exposes calibrated confidences and handles `.eml` uploads.
+\end{itemize}
+
+\section{Related Work}
+Brief literature on spam filtering, TF--IDF with linear models, and probability calibration (Platt scaling, isotonic regression) is discussed here. For email-specific features, domain heuristics and sender metadata are often useful signals.
+
+\section{Data}
+\subsection{Datasets used}
+The primary dataset used for the canonical experiments is `datasets/final_dataset.csv` (39,154 rows). Label distribution: 21,842 spam, 17,312 ham. After preprocessing and normalization, stratified train/test splits were used (80/20).
+
+\subsection{Preprocessing}
+Text fields were lowercased, non-alphanumeric characters removed, and whitespace collapsed. TF--IDF vectorization used max\_features=5000, ngram\_range=(1,2), min\_df=2, stop\_words='english'. A `domain_flag` meta-feature signals whether the sender domain is a common free provider (e.g., gmail.com).
+
+\section{Methods}
+\subsection{Models}
+Baseline: TF--IDF + LinearSVC wrapped by CalibratedClassifierCV.
+
+Enhanced: A custom transformer (`TextMetaTransformer`) combines TF--IDF features with a sparse domain-flag column, followed by LinearSVC + calibration.
+
+Both models use calibration via `CalibratedClassifierCV` to produce well-formed probabilities.
+
+\section{Experiments}
+\\subsection{Canonical training run}
+The canonical verified training run used the entire `final_dataset.csv` with stratified 80/20 train/test split. The run was executed via `train_verified.py`, which performs training and immediate on-test-set evaluation to ensure metrics consistency. Key saved files (timestamp 20251123T185309Z):
+\\begin{itemize}
+  \\item `backend/models/enhanced_pipeline.pkl` (canonical, current)
+  \\item `backend/models/baseline_pipeline.pkl` (canonical, current)
+  \\item `backend/experiments_out/verified_metrics.json` (immediate post-training evaluation)
+\\end{itemize}
+
+\subsection{Cross-validation}
+5-fold cross-validation results are summarized below (from `backend/experiments_out/kfold_metrics.json`). Per-fold accuracies ranged approximately 0.9865 to 0.9887, mean accuracy $\approx$ 0.98769.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Fold & Baseline Acc & Enhanced Acc \\
+\midrule
+1 & 0.98799 & 0.98799 \\
+2 & 0.98843 & 0.98843 \\
+3 & 0.98680 & 0.98680 \\
+4 & 0.98650 & 0.98650 \\
+5 & 0.98873 & 0.98873 \\
+\midrule
+Mean & 0.98769 & 0.98769 \\
+\bottomrule
+\end{tabular}
+\caption{5-fold CV accuracies for baseline and enhanced models.}
+\end{table}
+
+\section{Results}
+\\subsection{Canonical run metrics}
+From `verified_metrics.json` (timestamp 20251123T185309Z): baseline test accuracy 0.99464; enhanced test accuracy 0.99464. Both models achieved identical performance on the test split, indicating that the domain-flag meta-feature does not improve classification beyond TF--IDF text features alone.
+
+\subsection{ROC / PR / Confusion matrices}
+Representative plots are saved in `backend/experiments_out`. Selected images:
+\begin{itemize}
+  \item `enron_baseline_roc.png`
+  \item `enron_enhanced_roc.png`
+  \item `enron_baseline_pr.png`
+  \item `enron_enhanced_pr.png`
+  \item `enron_baseline_confusion.png`
+  \item `enron_enhanced_confusion.png`
+\end{itemize}
+
+% include example figures
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../backend/experiments_out/enron_enhanced_roc.png}
+  \caption{Enhanced model ROC (canonical run).}
+\end{figure}
+
+\subsection{Verification and reproducibility}
+During initial system testing, a critical discrepancy was discovered: saved pipeline re-evaluation produced only 0.442 accuracy, contradicting the training-time metrics reported in `train_full_results.json`. This motivated the creation of `train_verified.py`, a unified training and evaluation script that computes metrics immediately after training on the test split, with no gap between model saving and metric computation. This design eliminates the mismatch risk.
+
+The verified run confirms both models achieve 0.99464 accuracy and identical per-class metrics. The enhanced model incorporating `domain_flag` does not outperform the baseline, indicating that TF--IDF features capture sufficient signal for this dataset.
+
+\section{Discussion}
+Discuss model interpretability (coefficients from linear SVM saved in `experiments_out/coefficients.json`), the effect of the `domain_flag` feature, calibration behavior, and operational considerations for deploying the Flask API.
+
+\section{Conclusion and Future Work}
+Summarize results, list lessons learned (importance of reproducible saving & immediate re-eval), and propose future improvements: stronger deduplication, class-weighting, ensembling, and external evaluation on SpamAssassin.
+
+\appendix
+\section{Reproducibility and commands}
+All experiments were run from `backend/`. To reproduce the canonical training run:
+\begin{verbatim}
+# from backend/
+.\venv\Scripts\python.exe .\train_full.py --target-size 39154 --C 1.0 --calib-cv 5
+\end{verbatim}
+
+To evaluate the saved enhanced pipeline:
+\begin{verbatim}
+.\venv\Scripts\python.exe .\scripts\evaluate_enhanced.py
+\end{verbatim}
+
+\section{Artifact locations}
+Models: `backend/models/` \\ 
+Experiment outputs and plots: `backend/experiments_out/` \\ 
+Code: `backend/` and `frontend/` for the demo UI.
+
+\end{document}

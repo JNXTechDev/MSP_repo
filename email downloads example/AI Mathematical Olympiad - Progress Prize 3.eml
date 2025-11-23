@@ -1,0 +1,825 @@
+Delivered-To: jedhandaya3@gmail.com
+Received: by 2002:a05:7208:504e:b0:f3:77d2:6fd2 with SMTP id h14csp107256rbb;
+        Thu, 20 Nov 2025 13:49:49 -0800 (PST)
+X-Received: by 2002:a05:620a:4410:b0:861:27a4:5bd3 with SMTP id af79cd13be357-8b32f381dd4mr423874385a.64.1763675389287;
+        Thu, 20 Nov 2025 13:49:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1763675389; cv=none;
+        d=google.com; s=arc-20240605;
+        b=V0HPtWi3kWnMKCpc+7JoTNsrWbyN5rGrlC1l43swPVU7F+Qv+Ri+rrZ19IL6TMGfCQ
+         CEYU+pcT9kY/tI88/AXg2kjFd8MTogQQnrZ1FNt2HCDVgDh66sNplEgwFxJarhqR9jo2
+         I9PEd4v8bQut9GLgHvHUaQ6vAMKAW98lpkp85PfwBNr3iI9lnKTq3J1RPx5IjMDIn1RA
+         4/Ed7fX1rQpEnKhwIdrrKLxdSEsq7WN5GH0cFswvHufV7jxkBz5jma4YuWtBtHveRM7p
+         QE9Q+4gYBdmt75NowwofZWx5sC4QWBUKL3ZA2M9ArdS0vvIAP2JLMcKpLD31Qljivnui
+         AMoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:from:subject:message-id:list-id:feedback-id:precedence
+         :list-unsubscribe:reply-to:date:mime-version:dkim-signature;
+        bh=GHGuBqmmDITZr1znYvSfLRMaYFuaj2Yuy6HeD3Wydso=;
+        fh=b3GLnEXgfciRbfQqpvnY3MfxS3Vqa6I8jLK65oIrq1M=;
+        b=KeJv70RCsmY8rf4f5RwFi6dZ9WiEJNdvoxSM/9ahLXYXRYvwCNOMIiuICTRqidl6cg
+         g+mbt85GImFFIhttQEYxkoe+AOv4uOZGoCkpyNzJIaRKUVfH7ggDHMud20W0t62l60wP
+         1CK58/AgHXstWXeg3DETikqszz6KujeEzMcC6jGk3XG0mv2eYjvb+hlRPxY2uTI4+RT0
+         raxyXTyAbA2n1aUWiNRTWzzai8txVxz1HUnHZc2VlQMCHLrrbzvqdvrrO02hIccD7SLy
+         4UE3KYRe9GYHkfeh1TtorZPZ5Qx0UGRnGNboLVU3DI9cJOrfDzSpvNKisjxl7eittkat
+         xouA==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@kaggle.com header.s=20230601 header.b="Kba/zM6k";
+       spf=pass (google.com: domain of 3_iwfaqgkc-mst-wjuqdpfllqj.htrojimfsifdfilrfnq.htr@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3_IwfaQgKC-MST-WJUQdPFLLQJ.HTROJIMFSIFdFiLRFNQ.HTR@scoutcamp.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=kaggle.com;
+       dara=pass header.i=@gmail.com
+Return-Path: <3_IwfaQgKC-MST-WJUQdPFLLQJ.HTROJIMFSIFdFiLRFNQ.HTR@scoutcamp.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id af79cd13be357-8b3293325d0sor202988585a.2.2025.11.20.13.49.49
+        for <jedhandaya3@gmail.com>
+        (Google Transport Security);
+        Thu, 20 Nov 2025 13:49:49 -0800 (PST)
+Received-SPF: pass (google.com: domain of 3_iwfaqgkc-mst-wjuqdpfllqj.htrojimfsifdfilrfnq.htr@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@kaggle.com header.s=20230601 header.b="Kba/zM6k";
+       spf=pass (google.com: domain of 3_iwfaqgkc-mst-wjuqdpfllqj.htrojimfsifdfilrfnq.htr@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3_IwfaQgKC-MST-WJUQdPFLLQJ.HTROJIMFSIFdFiLRFNQ.HTR@scoutcamp.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=kaggle.com;
+       dara=pass header.i=@gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kaggle.com; s=20230601; t=1763675389; x=1764280189; dara=google.com;
+        h=to:from:subject:message-id:list-id:feedback-id:precedence
+         :list-unsubscribe:reply-to:date:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GHGuBqmmDITZr1znYvSfLRMaYFuaj2Yuy6HeD3Wydso=;
+        b=Kba/zM6kvWZhdJtIYIwKL1uGpAALSs2nM12bRpkhoesm8sBJPb3iLJSrqMkgWiYSnk
+         UoLzEomi91LG7gA2LRnszjRJbwy/OpMjLAIRFSSD51cCMehwAXP1r9G3dQto4fw0tomR
+         3kHoctJomCmzHCArQUPQH1Cp78QPOiMT9qzt4pqRF4g9dmpyTUkSVcUcrjh2YU1IORLW
+         7JPhuaghczE4V3eHX3enYnaDENrX1UXJcV1GtFIY9KX76ySEww/3nFA1U0QRu93J1EUY
+         htFYiytEC0Jt26c3jErMznxvW9/NbDP1S9Y4x8I84yt8/W+coa75x8kY0IZOM8P4uuDn
+         lrrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763675389; x=1764280189;
+        h=to:from:subject:message-id:list-id:feedback-id:precedence
+         :list-unsubscribe:reply-to:date:mime-version:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GHGuBqmmDITZr1znYvSfLRMaYFuaj2Yuy6HeD3Wydso=;
+        b=imNEBc7tM8ExQ6l5+Og/kzOLmkvj7m3oNkWvcs/valIocelqpnonRTThAynS3z3AEj
+         NlKGlQS5eH0pp2++sp82yTZ0lCMGWhvCH8NEPKNYVPTzSG6+ZmaGBY4vmJcZDofxFhaR
+         qNAS13jc3ZW+sKg0PQI4knzDaJmPHolwSxuBL22+z2HV2lvDLJ9ICfyZnBX5vb4xs23t
+         pDyimYZSdMSbPaXO9tP3Dmz2YKTZAMEg9Rpu2s9jKgipMMYru4yHN299ZSarLRPfc3rR
+         d0wUWoSkEOT2aM5wToTlNdneZteX8YTm/ChXqU2BMmKWI8SPzGEpcZNHCFaNpkpThHXJ
+         tepA==
+X-Gm-Message-State: AOJu0YwyRewZyusGgqBLBrmt+zzXgsOv3bd+y1C0rh0Scfg9Ywfavhq3
+	/jqy9qm9piavfqiJep6kwU0lJQNmSejpJJ6Pzq2Bs6TWie0onHc=
+X-Google-Smtp-Source: AGHT+IGzC2S3F/LZWBiIGUcIt3gC71qpHlpyUaReU2FOqwZw0sqarazWdkCIla9MhglR4wW5nCEaQzo=
+MIME-Version: 1.0
+X-Received: by 2002:a05:620a:7103:b0:8a2:45ba:1b5e with SMTP id
+ af79cd13be357-8b33860b8eamr163861185a.28.1763675388971; Thu, 20 Nov 2025
+ 13:49:48 -0800 (PST)
+Date: Thu, 20 Nov 2025 13:49:48 -0800
+Reply-To: Kaggle <no-reply@kaggle.com>
+X-Google-Id: 4343752
+List-Unsubscribe: <https://c.gle/APy2Ad3Jo9kGOX5zHahjNehPVc-YWCzDTmZBVA7kkNbzajQ57z80sQ6NeiyWOzYD7COZOxcCIc8QQYSI1e5EUr3b7CKwJ4tTTSPEbgNoHrsNYJlQCudFXBT3m-RrWU0PGkOZz4gL7okSh5O9BAQUwiKk8WGB4IDXbZ9zYrBXAjpTd6Rrsxf_q0iJHYAK1gAth8-xo68DS7yNYJcw5m0u>
+Precedence: bulk
+Feedback-ID: P2603-0:C20373778:M111018080-en-US:gamma
+List-Id: <d3d572f2a797bc005fbf0c631ac17de03856ef11.google.com>
+X-Notifications: 047863db3b860000
+X-Notifications-Bounce-Info: AU8hbIksojTm5pRWxGzoxjOXrjowKday67g6LIWwop-EjJRpBFd9ecRUxbzqRm0GhiEwfZyteUZINX6kHbDLpOYvh1qD7suSKozRbXhiRta51uJKw7aHpdmgeqjvIlsHYbPtNdL7GiYIu1cwv6NiSZ2toNlHxEafVi0fjU8z2j60pOqz-7FUSokFfRfBu5dfkVi9o0uFvXeJZKK9abdVgtiM8LY9diu-qmGKo54fY-5mtH4pbdt1cNuEwEKdhmYzUZEjEbmmQcQWwxhDu3zMYfRZa_WC1gUcz9eOp7QB2dJkNYZ0rykwGJ5ioyI3D8nbW8r7DQ9wPzAPC5A6IfJLlrLB74M_ejUofyDLXNs_uPMGS9uoIzbwjNlbzymogC9HSYGvgSCfZay4IH7CLlvRfwIEF6lbbf5cfhcdYAK_xvQ32_1SRgeadHg4DEJ9BvIZiSnfrhMNjAwNjA0MDQxNTM1NTk2OTMzMg
+Message-ID: <41135ef560e6d47da581ca2c999dec76e9de53a1-20373778-111735952@google.com>
+Subject: AI Mathematical Olympiad - Progress Prize 3
+From: Kaggle <no-reply@kaggle.com>
+To: jedhandaya3@gmail.com
+Content-Type: multipart/alternative; boundary="0000000000000f0b6706440dad58"
+
+--0000000000000f0b6706440dad58
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+
+Kaggle
+
+
+
+
+
+
+
+
+Hi Jedh Andaya,
+
+Help advance AI's mathematical reasoning skills and compete for over two  
+million dollars in prizes in this year's AI Mathematical Olympiad (AIMO).
+
+With updated rules, fresh datasets, and even more computing resources, this  
+latest AIMO Progress Prize competition offers an exciting opportunity to  
+drive innovation in AI for Math while fostering healthy competition &  
+supporting open science.
+
+
+
+
+
+
+Total Prizes:
+
+$2,207,152
+
+
+Entry Deadline:
+
+April 8, 2026
+
+
+
+
+Learn More
+
+
+
+
+
+Good luck,
+
+Ryan Holbrook
+Kaggle Competitions
+
+
+
+Kaggle, Inc 1600 Amphitheatre Pkwy Mountain View, CA 94043
+
+This email was sent to jedhandaya3@gmail.com because you indicated that  
+you'd like to receive news and updates about Kaggle. If you don't want to  
+receive these emails in the future, please unsubscribe here. You can also  
+change your preferences on your account's profile page by logging in at  
+kaggle.com.
+
+
+
+
+
+--0000000000000f0b6706440dad58
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html xmlns=3Dhttp://www.w3.org/1999/xhtml xmlns:v=3Durn:schemas-microsoft-=
+com:vml xmlns:o=3Durn:schemas-microsoft-com:office:office lang=3Den xml:lan=
+g=3Den>
+  <head>
+    <meta http-equiv=3DContent-Type content=3D"text/html; charset=3DUTF-8">
+    <title> AI Mathematical Olympiad - Progress Prize 3
+
+
+
+
+</title>
+    <style type=3Dtext/css>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2JL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* cyrillic */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa0ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* vietnamese */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa25L7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1ZL7W0Q5nw.woff2)
+          format("woff2");
+      }
+      /* cyrillic-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2JL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* cyrillic */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa0ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* vietnamese */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa25L7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1ZL7W0Q5nw.woff2)
+          format("woff2");
+      }
+      /* cyrillic-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2JL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* cyrillic */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa0ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2ZL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* greek */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* vietnamese */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa2pL7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa25L7W0Q5n-wU.woff2)
+          format("woff2");
+      }
+      /* latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v2/UcC73FwrK3iLTeHuS_fvQ=
+tMwCp50KnMa1ZL7W0Q5nw.woff2)
+          format("woff2");
+      }
+      html {
+        background: #f5f5f5;
+        font-family: "Inter", sans-serif;
+      }
+
+      /* WINDOWS 10 MAIL LINK FIX */
+      a {
+        text-decoration: none;
+      }
+
+      /* iOS GMAIL WEB FONT SIZE FIX */
+      .gmail-fix {
+        display: none;
+        display: none !important;
+      }
+
+      /* iOS GMAIL APP WIDTH FIX */
+      u + #new-gmail-fix {
+        display: block !important;
+      }
+
+      /* /////////////////// FIX */
+      .cta-hover:hover {
+        background-color: #639420 !important;
+        color: #ffffff !important;
+      }
+
+      /* /////////////////// FIX */
+      /* CTA ROLLOVER IF SUPPORTED */
+      .cta-hover:hover {
+        color: #ffffff !important;
+        background-color: #639420 !important;
+      }
+
+      .overline {
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        padding: 0;
+        margin: 0;
+        color: #202124;
+        letter-spacing: 1px;
+        text-transform: capitalize;
+      }
+
+      h1 {
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #202124;
+        letter-spacing: -0.02px;
+        margin: 0;
+      }
+
+      .body1 {
+        font-family: Inter-Medium;
+        font-size: 16px;
+        color: #3c4043;
+        letter-spacing: -0.02px;
+        line-height: 24px;
+      }
+
+      h2 {
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 28px;
+        color: #202124;
+        letter-spacing: -0.02px;
+        margin: 38px 0 0 0;
+      }
+
+      body {
+      }
+      .side-padding {
+          padding: 0 92px 0 92px;
+          margin: 0;
+        }
+
+      @media screen and (min-width: 600px) {
+        .side-padding {
+          padding: 0 92px 0 92px;
+          margin: 0;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        .side-padding {
+          padding: 0 24px 0 24px;
+          margin: 0;
+        }
+      }
+    </style>
+
+    <!--[if mso]>
+      <style type=3D"text/css">
+        table {
+          border-collapse: collapse;
+          mso-table-lspace: 0pt;
+          mso-table-rspace: 0pt;
+        }
+        table td {
+          border-collapse: collapse;
+        }
+        .mso-cta {
+          padding: 10px 0 10px 0 !important;
+          font-weight: bold !important;
+        }
+      </style>
+    <![endif]-->
+  </head>
+
+  <body bgcolor=3D#F5F5F5 style=3D"padding: 0; margin: 0; background: #f5f5=
+f5">
+    <center>
+      <!-- OUTER WRAPPER -->
+      <table align=3Dcenter bgcolor=3D#F5F5F5 border=3D0 cellpadding=3D0 ce=
+llspacing=3D0 width=3D100% role=3Dpresentation>
+        <tbody>
+          <tr>
+            <td align=3Dcenter style=3D"padding: 0px 0 0 0">
+              <!-- CONTENT CONTAINER -->
+              <table align=3Dcenter border=3D0 cellpadding=3D0 cellspacing=
+=3D0 width=3D600 role=3Dpresentation>
+                <tbody>
+                  <tr bgcolor=3D#F5F5F5 height=3D32>
+                    <td style=3D"padding: 0 0 0 0; height: 32px"></td>
+                  </tr>
+                  <tr bgcolor=3D#F5F5F5>
+                    <td align=3Dcenter style=3D"padding: 0 0 0 0" width=3D6=
+00px>
+                      <img alt=3DKaggle border=3D0 src=3Dhttps://storage.go=
+ogleapis.com/kaggle-media/Images/Kaggle_Blue.png alt=3D"=E2=80=9CKaggle=E2=
+=80=9D" style=3D"
+                          display: block;
+                          outline: none;
+                          height: auto;
+                          height: 40px;
+                          width: 104px;
+                        " width=3D104>
+                    </td>
+                  </tr>
+                  <tr bgcolor=3D#F5F5F5 height=3D32>
+                    <td style=3D"padding: 0 0 0 0; height: 32px"></td>
+                  </tr>
+                  <!-- TEXT CONTENT CONTAINER -->
+                  <tr bgcolor=3D#FFFFFF>
+                    <td align=3Dcenter style=3D"padding: 0 0 0 0" width=3D6=
+00px>
+                      <table align=3Dcenter border=3D0 cellpadding=3D0 cell=
+spacing=3D0 width=3D600 role=3Dpresentation>
+                        <tbody>
+                          <tr bgcolor=3D#FFFFFF height=3D36>
+                            <td style=3D"padding: 0 0 0 0; height: 36px"></=
+td>
+                          </tr>
+                          <tr bgcolor=3D#FFFFFF>
+                            <td class=3Dside-padding style=3D"padding: 0 44=
+px 0 44px">
+                             =20
+                       =20
+
+                              <p style=3D"
+                                  font-family: &#39;Inter&#39;, sans-serif;
+                                  font-weight: 500;
+                                  font-size: 16px;
+                                  color: #3c4043;
+                                  letter-spacing: -0.02px;
+                                  line-height: 24px;
+                                ">
+                                Hi Jedh Andaya,
+                              </p>
+                           <p style=3D"
+                                  font-family: &#39;Inter&#39;, sans-serif;
+                                  font-weight: 500;
+                                  font-size: 16px;
+                                  color: #3c4043;
+                                  letter-spacing: -0.02px;
+                                  line-height: 24px;
+                                ">Help advance AI=E2=80=99s mathematical re=
+asoning skills and compete for over two million dollars in prizes in this y=
+ear=E2=80=99s AI Mathematical Olympiad (AIMO).  =20
+<br>
+<br>
+With updated rules, fresh datasets, and even more computing resources, this=
+ latest AIMO Progress Prize competition offers an exciting opportunity to d=
+rive innovation in AI for Math while fostering healthy competition &amp; su=
+pporting open science.
+<br>
+<br>
+
+
+=20
+</p>
+      =20
+                 =20
+   =20
+                           =20
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+             =20
+   =20
+            =20
+               =20
+
+
+
+
+
+
+
+                  <tr bgcolor=3D#FFFFFF align=3Dcenter>
+                    <td align=3Dcenter style=3D"padding: 10px 0 0 0">
+                      <!--[if (gte mso 9)|(IE)]>
+                    <table align=3D"left" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" width=3D"100%">
+                      <tr>
+                        <td align=3D"left" valign=3D"top" width=3D"50%">
+                        <![endif]-->
+                      <div class=3Dspan-3 style=3D"
+                          display: inline-block;
+                          vertical-align: top;
+                          width: 100%;
+                          max-width: 278px;
+                        ">
+                       <h3 style=3D"
+                            font-family: &#39;Inter&#39;, sans-serif;
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #202124;
+                            letter-spacing: -0.01px;
+                            text-align: center;
+                            margin: 20px 0 0 0;
+                            line-height: 20px;
+                          ">
+                          Total Prizes:
+                        </h3>
+                        <p style=3D"
+                            font-family: &#39;Inter&#39;, sans-serif;
+                            font-weight: 500;
+                            font-size: 16px;
+                            color: #3c4043;
+                            letter-spacing: -0.02px;
+                            line-height: 24px;
+                          ">
+$2,207,152                     </p>
+                      </div>
+                      <!--[if (gte mso 9)|(IE)]>
+                      </td>
+                      <td align=3D"left" valign=3D"top" width=3D"50%">
+                      <![endif]-->
+                      <div class=3Dspan-3 style=3D"
+                          display: inline-block;
+                          vertical-align: top;
+                          width: 100%;
+                          max-width: 278px;
+                        ">
+                        <h3 style=3D"
+                            font-family: &#39;Inter&#39;, sans-serif;
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #202124;
+                            letter-spacing: -0.01px;
+                            text-align: center;
+                            margin: 20px 0 0 0;
+                            line-height: 20px;
+                          ">
+                          Entry Deadline:
+                        </h3>
+                        <p style=3D"
+                            font-family: &#39;Inter&#39;, sans-serif;
+                            font-weight: 500;
+                            font-size: 16px;
+                            color: #3c4043;
+                            letter-spacing: -0.02px;
+                            line-height: 24px;
+                          ">April 8, 2026=20
+
+
+
+                        </p>
+                      </div>
+                      <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                      </tr>
+                    </table>
+                    <![endif]-->
+                    </td>
+                  </tr>
+
+
+
+             =20
+                  <tr bgcolor=3D#FFFFFF>
+                    <td align=3Dcenter>
+                      <div>
+                        <!--[if mso]>
+                          <v:roundrect
+                            xmlns:v=3D"urn:schemas-microsoft-com:vml"
+                            xmlns:w=3D"urn:schemas-microsoft-com:office:wor=
+d"
+                            href=3D"https://www.kaggle.com/competitions/ai-=
+mathematical-olympiad-progress-prize-3?utm_medium=3Demail&utm_source=3Dgamm=
+a&utm_campaign=3Dcomp-aimo-2025"=20
+                            style=3D"
+                              height: 36px;
+                              v-text-anchor: middle;
+                              width: 200px;
+                            "
+                            arcsize=3D"50%"
+                            strokecolor=3D"#e6e6e8"
+                            fillcolor=3D"#fafafb"
+                          >
+                            <w:anchorlock />
+                            <center
+                              style=3D"
+                                color: #2f353e;
+                                font-family: sans-serif;
+                                font-size: 13px;
+                                font-weight: bold;
+                              "
+                            >
+Learn More                            </center>
+                          </v:roundrect> <!
+                        [endif]--><a href=3Dhttps://c.gle/APy2Ad3XtMilsdqUQ=
+2LzKgKhKXbPXv1zvYdYg7vrezZyo8JgCHFD1dsjoDq5lGgM_cv2IIuqo9PgqxUvKjCnQxLZD6KS=
+nrXTM87Ivh7y1uQPlr9cxXSJRGGm2dmFADUEMn9GlEXJN67Sf767z0CRpcYYfnQteMWUN6kpMxX=
+GTkQHYOOpBhn2glAYp2Ay57qOdvJX2Gw8jXqBNHztns5TAfi5fh2wSIon6aQHlCx5VKuzo52Jjl=
+q3OIrAQGjj6p1rBuzO_FyU2ITXx57ZeQ style=3D"
+                            background-color: #000000;
+                            padding: 11px 24px 11px 24px;
+                            margin: 10px 0 0px 0;
+                            border-radius: 20px;
+                            font-family: &#39;Inter&#39;, sans-serif;
+                            font-weight: 600;
+                            font-size: 14px;
+                            color: #ffffff;
+                            letter-spacing: 0;
+                            display: inline-block;
+                            text-align: center;
+                            text-decoration: none;
+                            -webkit-text-size-adjust: none;
+                            mso-hide: all;
+                          " title=3D"Learn More">     Learn More=20
+</a>
+                      </div>
+                    </td>
+                  </tr>
+
+
+
+            =20
+                  <tr bgcolor=3D#FFFFFF>
+                    <td class=3Dside-padding style=3D"padding: 0 44px 0 44p=
+x">
+ <p style=3D"
+                          font-family: &#39;Inter&#39;, sans-serif;
+                          font-weight: 500;
+                          font-size: 16px;
+                          padding-bottom: 40px;
+                          color: #3c4043;
+                          letter-spacing: -0.02px;
+                          line-height: 24px;
+                        ">
+<br><br>
+Good luck,<br><br>Ryan Holbrook
+=20
+
+
+
+
+
+
+
+<br>
+Kaggle Competitions
+
+                      </p>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td class=3Dside-padding style=3D"padding: 0 24px 0 24p=
+x">
+                      <p style=3D"
+                          font-family: &#39;Inter&#39;, sans-serif;
+                          font-weight: 500;
+                          font-size: 12px;
+                          color: #5f6368;
+                          padding-top: 30px;
+                          letter-spacing: 0;
+                          text-align: center;
+                          line-height: 20px;
+                        ">
+                        Kaggle, Inc 1600 Amphitheatre Pkwy Mountain View, C=
+A
+                        94043
+                      </p>
+                      <p style=3D"
+                          font-family: &#39;Inter&#39;, sans-serif;
+                          font-weight: 500;
+                          font-size: 12px;
+                          color: #5f6368;
+                          letter-spacing: 0;
+                          text-align: center;
+                          line-height: 20px;
+                        ">
+                        This email was sent to jedhandaya3@gmail.com becaus=
+e you
+                        indicated that you&#39;d like to receive news and u=
+pdates
+                        about Kaggle. If you don&#39;t want to receive thes=
+e emails
+                        in the future, please
+                        <a href=3Dhttps://c.gle/APy2Ad3Jo9kGOX5zHahjNehPVc-=
+YWCzDTmZBVA7kkNbzajQ57z80sQ6NeiyWOzYD7COZOxcCIc8QQYSI1e5EUr3b7CKwJ4tTTSPEbg=
+NoHrsNYJlQCudFXBT3m-RrWU0PGkOZz4gL7okSh5O9BAQUwiKk8WGB4IDXbZ9zYrBXAjpTd6Rrs=
+xf_q0iJHYAK1gAth8-xo68DS7yNYJcw5m0u style=3D"color: #000000; text-decoratio=
+n: underline" title=3D"Unsubscribe here">unsubscribe here</a>. You can also=
+ change your preferences on your
+                        account&#39;s profile page by logging in at
+                        <a href=3Dhttps://c.gle/APy2Ad1MEWUjVkOiAJFRNmr8O2G=
+4fLqPTrbg8dn0Pv36W1o0ibiPEd6RCE6e2OUA6Z_t66WrB2lqycI4hiOplCPCBIPTL21pnkG4UE=
+wd8bb8heJLBBCw style=3D"color: #000000; text-decoration: underline" title=
+=3DKaggle.com>kaggle.com.</a>
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  <img alt=3D"" height=3D1 width=3D3 src=3Dhttps://notifications.google.com=
+/g/img/APy2Ad1i_KSdOTzsnDqMI5Nwlo1TKo6jG8RL67OfVviTHZKgY74l_LG_G4Cyjs660i2j=
+P4gEeSG9VRbOtlbLp5lnYc9lnmULylki9znu293AjYf-8R9X4HXu74EWd3qa-B1IRiS3Eg.gif>=
+</body>
+</html>
+
+
+--0000000000000f0b6706440dad58--
